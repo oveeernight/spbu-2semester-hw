@@ -13,13 +13,13 @@ public class Tests
         rn.BuildNetwork("output.txt");
         var expectedEdges = new Dictionary<Edge, int>
         {
-            { new Edge(1, 2), 10 },
-            { new Edge(2, 6), 9 },
-            { new Edge(4, 6), 7 }, // тут возможно ребро (5,6) 7 , но программа построит дерево с ребром (4, 6) 7
-            { new Edge(4, 5), 20 },
-            { new Edge(3, 4), 6 },
-            { new Edge(6, 7), 4 },
-            { new Edge(6, 8), 1 }
+            { new Edge(1, 2, 10), 10 },
+            { new Edge(2, 6, 9), 9 },
+            { new Edge(4, 6, 7), 7 }, // тут возможно ребро (5,6) 7 , но программа построит дерево с ребром (4, 6) 7
+            { new Edge(4, 5, 20), 20 },
+            { new Edge(3, 4, 6), 6 },
+            { new Edge(6, 7, 4), 4 },
+            { new Edge(6, 8, 1), 1 }
         };
         Assert.AreEqual(expectedEdges.Count, rn.TreeEdges.Count);
         foreach (var (key, _) in expectedEdges)
@@ -35,8 +35,8 @@ public class Tests
         rn.BuildNetwork("output.txt");
         var expectedEdges = new Dictionary<Edge, int>
         {
-            { new Edge(1, 2), 10 },
-            { new Edge(1, 3), 5 },
+            { new Edge(1, 2, 10), 10 },
+            { new Edge(1, 3, 5), 5 },
         };
         Assert.AreEqual(expectedEdges.Count, rn.TreeEdges.Count);
         foreach (var (key, _) in expectedEdges)
@@ -59,9 +59,9 @@ public class Tests
         rn.BuildNetwork("output.txt");
         var expectedEdges = new Dictionary<Edge, int>
         {
-            { new Edge(1, 2), 1 },
-            { new Edge(2, 3), 2 },
-            { new Edge(2, 4), 3 }
+            { new Edge(1, 2, 1), 1 },
+            { new Edge(2, 3, 2), 2 },
+            { new Edge(2, 4, 3), 3 }
         };
         Assert.AreEqual(expectedEdges.Count, rn.TreeEdges.Count);
         foreach (var (key, _) in expectedEdges)
@@ -77,7 +77,7 @@ public class Tests
         rn.BuildNetwork("output.txt");
         var expectedEdges = new Dictionary<Edge, int>
         {
-            { new Edge(1, 2), 1 },
+            { new Edge(1, 2, 1), 1 },
         };
         Assert.AreEqual(expectedEdges.Count, rn.TreeEdges.Count);
         foreach (var (key, _) in expectedEdges)

@@ -7,8 +7,8 @@ namespace Routers;
 /// </summary>
 public class RoutersNetwork
 {
-    private readonly Dictionary<Edge, int> _edges = new ();
-    private readonly Dictionary<Edge, int> _availableEdges = new();
+    private readonly List<Edge> _edges = new ();
+    private readonly Heap<Edge> _availableEdges = new();
     private readonly int _verticesCount;
     
     // я не придумал, как тестировать по-другому
@@ -33,7 +33,7 @@ public class RoutersNetwork
                 else if (s[0] == '(')
                 {
                     var value = int.Parse(s[1..s.LastIndexOf(')')]);
-                    _edges.Add(new Edge(vertex0, vertex1), value);
+                    _edges.Add(new Edge(vertex0, vertex1, weight: value));
                 }
             }
         }
@@ -47,60 +47,54 @@ public class RoutersNetwork
         var processedVertices = new bool[_verticesCount + 1]; 
         var outputLines = new StringBuilder[_verticesCount];
         FillOutputPattern(outputLines);
-        UpdateAvailableEdges(1);
+        UpdateAvailableEdges(1, processedVertices);
         processedVertices[1] = true;
         for (var i = 0;  i < _verticesCount - 1; i++)
         {
-            var newTreeEdge = new Edge();
-            var maxValue = 0;
-            foreach (var (key, value) in _availableEdges)
+            var newTreeEdge = _availableEdges.Extract();
+            //  из _availableEdges нельзя просто так взять максимальное ребро, нужно еще раз проверить,
+            // что 1 вершина помечена, а другая нет
+            while (processedVertices[newTreeEdge.Vertex0] && processedVertices[newTreeEdge.Vertex1])
             {
-                //  из _availableEdges нельзя просто так взять максимальное ребро, нужно еще раз проверить,
-                // что 1 вершина помечена, а другая нет
-                if (value > maxValue && (!processedVertices[key.Vertex0] || !processedVertices[key.Vertex1]))
-                {
-                    maxValue = value;
-                    newTreeEdge = key;
-                }
+                newTreeEdge = _availableEdges.Extract();
             }
             
             // если не нашлось подходящего ребра но мы все ещё в цикле, то граф был несвязный
-            if (maxValue == 0)
+            if (newTreeEdge.Weight == 0)
             {
                 var ew = Console.Error;
                 ew.Write("routers network were unconnected");
                 return -1;
             }
-
-            _availableEdges.Remove(newTreeEdge);
-            _edges.Remove(newTreeEdge);
-
+            
             if (processedVertices[newTreeEdge.Vertex1]) // если вершина 1 помечена 
             {
                 processedVertices[newTreeEdge.Vertex0] = true;
-                UpdateAvailableEdges(newTreeEdge.Vertex0);
+                UpdateAvailableEdges(newTreeEdge.Vertex0, processedVertices);
             }
             else // если вершина 0 помечена
             {
                 processedVertices[newTreeEdge.Vertex1] = true;
-                UpdateAvailableEdges(newTreeEdge.Vertex1);
+                UpdateAvailableEdges(newTreeEdge.Vertex1, processedVertices);
             }
             
-            TreeEdges.Add(newTreeEdge, maxValue);
-            outputLines[newTreeEdge.Vertex0 - 1].Append($" {newTreeEdge.Vertex1} ({maxValue}),");
+            TreeEdges.Add(newTreeEdge, newTreeEdge.Weight);
+            outputLines[newTreeEdge.Vertex0 - 1].Append($" {newTreeEdge.Vertex1} ({newTreeEdge.Weight}),");
         }
         
         Print(targetPath, outputLines);
         return 0;
     }
 
-    private void UpdateAvailableEdges(int vertex)
+    private void UpdateAvailableEdges(int vertex, bool[] processedVertices)
     {
+        processedVertices[vertex] = true;
         foreach (var edge in _edges)
         {
-            if (!_availableEdges.ContainsKey(edge.Key) &&  (edge.Key.Vertex0 == vertex || edge.Key.Vertex1 == vertex))
+            if (edge.Vertex0 == vertex && !processedVertices[edge.Vertex1] 
+                || edge.Vertex1 == vertex && !processedVertices[edge.Vertex0])
             {
-                _availableEdges.Add(edge.Key, edge.Value);
+                _availableEdges.Insert(edge);
             }
         }
     }
