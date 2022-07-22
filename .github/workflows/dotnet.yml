@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.x
-    - name: Restore dependencies
-      run: dotnet restore
     - name: Build
       run: $slnInFolder = Get-ChildItem -Recurse -Filter '*.sln'; foreach ($file in $slnInFolder) {dotnet build $file.FullName}
     - name: Test
