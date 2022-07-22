@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build 
+      run: $slnInFolder = Get-ChildItem -Recurse -Filter '*.sln'; foreach ($file in $slnInFolder) {dotnet build $file.FullName}
     - name: Test
-      run: dotnet test 
+      run: $slnInFolder = Get-ChildItem -Recurse -Filter '*.sln'; foreach ($file in $slnInFolder) {dotnet test $file.FullName}
