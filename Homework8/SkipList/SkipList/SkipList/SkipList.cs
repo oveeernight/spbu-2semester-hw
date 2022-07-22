@@ -140,7 +140,7 @@ public class SkipList<T> : IList<T> where T : IComparable, new ()
     }
 
     /// <summary>
-    /// Determines whether the specific key contains in SkipList
+    /// Determines whether specific key contains in SkipList
     /// </summary>
     public bool Contains(T key)
     {
