@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Routers", "Routers\Routers.csproj", "{A6A46C4E-0019-48B5-BBAC-6A14DCD576E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutersTest", "RoutersTest\RoutersTest.csproj", "{1BBDF67C-5B10-4453-99B7-19C0A78A6D9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6A46C4E-0019-48B5-BBAC-6A14DCD576E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A46C4E-0019-48B5-BBAC-6A14DCD576E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A46C4E-0019-48B5-BBAC-6A14DCD576E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A46C4E-0019-48B5-BBAC-6A14DCD576E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBDF67C-5B10-4453-99B7-19C0A78A6D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBDF67C-5B10-4453-99B7-19C0A78A6D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBDF67C-5B10-4453-99B7-19C0A78A6D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBDF67C-5B10-4453-99B7-19C0A78A6D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
