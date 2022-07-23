@@ -3,9 +3,11 @@
 /// <summary>
 /// Represents max heap
 /// </summary>
-public class Heap<T> where T : IComparable<T>, new()
+public class Heap<T> where T : IComparable<T>
 {
     private List<T> _list = new ();
+
+    public int Count => _list.Count;
 
     /// <summary>
     /// Returns max item in heap and deletes it
@@ -14,7 +16,7 @@ public class Heap<T> where T : IComparable<T>, new()
     {
         if (_list.Count == 0)
         {
-            return new T();
+            throw new InvalidOperationException("The heap was empty");
         }
         var result = _list[0];
         (_list[0], _list[^1]) = (_list[^1], _list[0]);
@@ -34,24 +36,27 @@ public class Heap<T> where T : IComparable<T>, new()
 
     private void BuildHeap(int index)
     {
-        var largest = index;
-
-        if (2 * index + 1 < _list.Count &&  _list[2 * index + 1].CompareTo(_list[largest]) > 0)
+        while (true)
         {
-            largest = 2 * index + 1;
-        }
-        if (2 * index + 2 < _list.Count && _list[2 * index + 2].CompareTo(_list[largest]) > 0)
-        {
-            largest = 2 * index + 2;
-        }
+            var largest = index;
 
-        if (_list.Count == 0 ||_list[largest].CompareTo(_list[index]) == 0)
-        {
-            return;
-        }
+            if (2 * index + 1 < _list.Count &&  _list[2 * index + 1].CompareTo(_list[largest]) > 0)
+            {
+                largest = 2 * index + 1;
+            }
+            if (2 * index + 2 < _list.Count && _list[2 * index + 2].CompareTo(_list[largest]) > 0)
+            {
+                largest = 2 * index + 2;
+            }
 
-        (_list[index], _list[largest]) = (_list[largest], _list[index]);
-        BuildHeap(largest);
+            if (_list.Count == 0 || _list[largest].CompareTo(_list[index]) == 0)
+            {
+                return;
+            }
+
+            (_list[index], _list[largest]) = (_list[largest], _list[index]);
+            index = largest;
+        }
     }
 
     private void CorrectNewItemPosition()

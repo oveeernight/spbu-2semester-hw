@@ -11,8 +11,10 @@ public class RoutersNetwork
     private readonly Heap<Edge> _availableEdges = new();
     private readonly int _verticesCount;
     
-    // я не придумал, как тестировать по-другому
-    public readonly Dictionary<Edge, int> TreeEdges = new();
+    private readonly List<Edge> _treeEdges = new();
+
+    public List<Edge> TreeEdges => _treeEdges.Select(edge => new Edge(edge.Vertex0, edge.Vertex1, edge.Weight)).ToList();
+    
     public RoutersNetwork(string inputPath)
     {
         var lines = File.ReadAllLines(inputPath);
@@ -54,16 +56,16 @@ public class RoutersNetwork
             var newTreeEdge = _availableEdges.Extract();
             //  из _availableEdges нельзя просто так взять максимальное ребро, нужно еще раз проверить,
             // что 1 вершина помечена, а другая нет
-            while (processedVertices[newTreeEdge.Vertex0] && processedVertices[newTreeEdge.Vertex1])
+            while (_availableEdges.Count > 0 && processedVertices[newTreeEdge.Vertex0] && processedVertices[newTreeEdge.Vertex1])
             {
                 newTreeEdge = _availableEdges.Extract();
             }
             
             // если не нашлось подходящего ребра но мы все ещё в цикле, то граф был несвязный
-            if (newTreeEdge.Weight == 0)
+            if (processedVertices[newTreeEdge.Vertex0] && processedVertices[newTreeEdge.Vertex1])
             {
-                var ew = Console.Error;
-                ew.Write("routers network were unconnected");
+                var errorWriter = Console.Error;
+                errorWriter.Write("routers network was unconnected");
                 return -1;
             }
             
@@ -78,7 +80,7 @@ public class RoutersNetwork
                 UpdateAvailableEdges(newTreeEdge.Vertex1, processedVertices);
             }
             
-            TreeEdges.Add(newTreeEdge, newTreeEdge.Weight);
+            _treeEdges.Add(newTreeEdge);
             outputLines[newTreeEdge.Vertex0 - 1].Append($" {newTreeEdge.Vertex1} ({newTreeEdge.Weight}),");
         }
         
@@ -110,23 +112,21 @@ public class RoutersNetwork
 
     private void Print(string targetPath, StringBuilder[] lines)
     {
-        using (var sw = new StreamWriter(targetPath, false))
+        using var sw = new StreamWriter(targetPath, false);
+        foreach (var line in lines)
         {
-            foreach (var line in lines)
+            if (line[^1] == ':')
             {
-                if (line[^1] == ':')
-                {
-                    continue;
-                }
-                if (line[^1] == ',')
-                {
-                    sw.WriteLine(line.Remove(line.Length - 1, 1));
+                continue;
+            }
+            if (line[^1] == ',')
+            {
+                sw.WriteLine(line.Remove(line.Length - 1, 1));
 
-                }
-                else
-                {
-                    sw.WriteLine(line);
-                }
+            }
+            else
+            {
+                sw.WriteLine(line);
             }
         }
     }
