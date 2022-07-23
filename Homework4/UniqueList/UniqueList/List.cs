@@ -11,7 +11,6 @@ public class List
     private int[] array;
 
     public int Count => position;
-    private int[] Array => array;
 
     public List()
     {
