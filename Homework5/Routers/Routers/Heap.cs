@@ -1,16 +1,15 @@
 ﻿namespace Routers;
 
 /// <summary>
-/// 
+/// Represents max heap
 /// </summary>
 public class Heap<T> where T : IComparable<T>, new()
 {
     private List<T> _list = new ();
 
     /// <summary>
-    /// 
+    /// Returns max item in heap and deletes it
     /// </summary>
-    /// <returns></returns>
     public T Extract()
     {
         if (_list.Count == 0)
@@ -25,9 +24,8 @@ public class Heap<T> where T : IComparable<T>, new()
     }
 
     /// <summary>
-    /// 
+    /// Inserts item in heap
     /// </summary>
-    /// <param name="item"></param>
     public void Insert(T item)
     {
         _list.Add(item);
