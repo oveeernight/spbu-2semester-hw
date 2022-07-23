@@ -49,6 +49,9 @@ public class Tests
     public void Test_PopFromEmptyStack_ShouldThrowException(StackCalculator.StackCalculator calculator)
     {
         var ex = Assert.Throws<InvalidOperationException>(() => calculator.Calculate(" 2 2 + +"));
-        Assert.That(ex.Message, Is.EqualTo("The number of operands must be greater by 1 than amount of operations"));
+        if (ex != null)
+        {
+            Assert.That(ex.Message, Is.EqualTo("The number of operands must be greater by 1 than amount of operations"));
+        }
     }
 }

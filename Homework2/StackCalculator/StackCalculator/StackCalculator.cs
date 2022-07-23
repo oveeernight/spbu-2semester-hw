@@ -26,7 +26,6 @@ public class StackCalculator
             {
                 try
                 {
-                    // тут по идее бросится исключение и поймается в мейне
                     var storedNumber = _stack.Pop();
                     var inputNumber = _stack.Pop();
                     if (element == "/" && Math.Abs(inputNumber) < Math.Pow(10, -9))

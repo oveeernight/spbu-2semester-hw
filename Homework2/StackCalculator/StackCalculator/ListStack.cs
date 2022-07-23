@@ -33,7 +33,7 @@ public class ListStack : IStack
             throw new InvalidOperationException("Tried to remove element from empty stack");
         }
         var value = _head?.Value ?? 0;
-        _head = _head.Next;
+        _head = _head?.Next;
         return value;
     }
 }
