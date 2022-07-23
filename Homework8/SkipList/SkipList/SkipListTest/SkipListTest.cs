@@ -63,6 +63,8 @@ public class Tests
             Assert.AreEqual(expected[i], item);
             i++;
         }
+
+        Assert.AreEqual(4, i);
     }
     
     [Test]
