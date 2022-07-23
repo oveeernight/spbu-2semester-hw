@@ -32,7 +32,7 @@ public class Trie
     }
     
     /// <summary>
-    /// Returns the number of stored string
+    /// Returns the number of stored strings
     /// </summary>
     public int Size { get; private set; }
     

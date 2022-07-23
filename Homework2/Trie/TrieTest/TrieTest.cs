@@ -4,7 +4,7 @@ namespace TrieTest;
 
 public class Tests
 {
-    private Trie.Trie trie;
+    private Trie.Trie trie = new();
 
     [SetUp]
     public void Setup()
@@ -60,6 +60,6 @@ public class Tests
         trie.Add("a");
         Assert.AreEqual(3, trie.HowManyStartsWithPrefix("1"));
         Assert.AreEqual(3, trie.HowManyStartsWithPrefix("a"));
-        Assert.AreEqual(0,trie.HowManyStartsWithPrefix("abcde"));
+        Assert.AreEqual(0, trie.HowManyStartsWithPrefix("abcde"));
     }
 }
