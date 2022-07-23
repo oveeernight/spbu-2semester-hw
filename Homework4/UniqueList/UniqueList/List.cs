@@ -71,5 +71,5 @@ public class List
         position--;
     }
 
-    protected bool Contains(int number) => Array[..position].Any(item => item == number);
+    protected bool Contains(int number) => array[..position].Any(item => item == number);
 }
