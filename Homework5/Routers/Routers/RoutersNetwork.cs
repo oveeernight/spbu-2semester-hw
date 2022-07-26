@@ -50,7 +50,6 @@ public class RoutersNetwork
         var outputLines = new StringBuilder[_verticesCount];
         FillOutputPattern(outputLines);
         UpdateAvailableEdges(1, processedVertices);
-        processedVertices[1] = true;
         for (var i = 0;  i < _verticesCount - 1; i++)
         {
             var newTreeEdge = _availableEdges.Extract();
@@ -64,8 +63,7 @@ public class RoutersNetwork
             // если не нашлось подходящего ребра но мы все ещё в цикле, то граф был несвязный
             if (processedVertices[newTreeEdge.Vertex0] && processedVertices[newTreeEdge.Vertex1])
             {
-                var errorWriter = Console.Error;
-                errorWriter.Write("routers network was unconnected");
+                Console.Error.Write("routers network was unconnected");
                 return -1;
             }
             
