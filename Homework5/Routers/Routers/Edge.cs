@@ -5,8 +5,8 @@
 /// </summary>
 public struct Edge : IComparable<Edge>
 {
-    public int Vertex0 = 0;
-    public int Vertex1 = 0;
+    public int Vertex0 { get; }= 0;
+    public int Vertex1 { get; } = 0;
     public int Weight { get; } = 0;
 
     public Edge(int vertex0, int vertex1, int weight)

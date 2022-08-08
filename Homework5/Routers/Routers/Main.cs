@@ -1,4 +1,7 @@
 ﻿using Routers;
 
-var routersNetwork = new RoutersNetwork(args[0]);
-routersNetwork.BuildNetwork(args[1]);
+if (args[0] != null && args[1] != null)
+{
+    var routersNetwork = new RoutersNetwork(@args[0]);
+    routersNetwork.BuildNetwork(@args[1]);
+}

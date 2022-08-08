@@ -7,7 +7,7 @@ namespace Routers;
 /// </summary>
 public class RoutersNetwork
 {
-    private readonly List<Edge> _edges = new ();
+    private readonly List<Edge> _edges = new();
     private readonly Heap<Edge> _availableEdges = new();
     private readonly int _verticesCount;
     
@@ -110,7 +110,7 @@ public class RoutersNetwork
 
     private void Print(string targetPath, StringBuilder[] lines)
     {
-        using var sw = new StreamWriter(targetPath, false);
+        using var streamWriter = new StreamWriter(targetPath, false);
         foreach (var line in lines)
         {
             if (line[^1] == ':')
@@ -119,12 +119,12 @@ public class RoutersNetwork
             }
             if (line[^1] == ',')
             {
-                sw.WriteLine(line.Remove(line.Length - 1, 1));
+                streamWriter.WriteLine(line.Remove(line.Length - 1, 1));
 
             }
             else
             {
-                sw.WriteLine(line);
+                streamWriter.WriteLine(line);
             }
         }
     }
